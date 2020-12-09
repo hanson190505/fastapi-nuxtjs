@@ -4,8 +4,8 @@ from pydantic import BaseModel
 
 
 class BooksBase(BaseModel):
-    title: str
-    description: Optional[str] = None
+    p_name: str
+    p_price: Optional[float] = None
 
 
 class BooksCreate(BooksBase):
