@@ -1,4 +1,6 @@
-from fastapi import FastAPI, Query, Depends, HTTPException
+import time
+
+from fastapi import FastAPI, Query, Depends, HTTPException, Request
 from pydantic.typing import List
 from sqlalchemy.orm import Session
 
@@ -18,15 +20,24 @@ def get_db():
         db.close_all()
 
 
-@app.post("/users/", response_model=schemas.User)
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    response.headers["X-Process-Time"] = str(process_time)
+    return response
+
+
+@app.post("/users/", response_model=schemas.User, tags=['Users'])
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_name(db, name=user.name)
     if db_user:
-        raise HTTPException(status_code=400, detail="Name already registered")
+        raise HTTPException(status_code=400, detail="Name already registered!")
     return crud.create_user(db=db, user=user)
 
 
-@app.get("/users/", response_model=List[schemas.User])
+@app.get("/users/", response_model=List[schemas.User], tags=['Users'])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
