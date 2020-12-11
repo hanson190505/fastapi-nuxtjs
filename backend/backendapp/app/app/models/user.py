@@ -10,3 +10,4 @@ class UserModel(Base):
     hashed_password = Column(String(512), nullable=False)
     login_date = Column(DateTime(timezone=True), default=datetime.now)
     is_active = Column(Boolean, default=True)
+    is_delete = Column(Boolean, default=False)
