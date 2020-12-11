@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     # POSTGRES_USER: str
     # POSTGRES_PASSWORD: str
     # POSTGRES_DB: str
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123456@localhost:5432/fastapi_db"
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123456@fastapi_db/fastapi_db"
 
 
 settings = Settings()

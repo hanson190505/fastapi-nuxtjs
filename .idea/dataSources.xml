@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="fastapi_db@localhost" uuid="ef54c617-22b8-4100-ad5f-a5291b42a065">
+    <data-source source="LOCAL" name="fastapi_db@localhost" uuid="52ba54fd-ef90-4e56-8c8c-2bc351e4b3e9">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
