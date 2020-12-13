@@ -1,5 +1,5 @@
 from typing import Optional
-
+from datetime import datetime
 from pydantic import BaseModel
 # schemas里定义的是响应类,Openapi的响应体格式
 
@@ -31,7 +31,8 @@ class UserInDBBase(UserBase):
 
 # Additional properties to return via API
 class User(UserInDBBase):
-    pass
+    login_date: datetime
+    is_delete: bool
 
 
 # Additional properties stored in DB
