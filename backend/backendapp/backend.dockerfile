@@ -1,7 +1,8 @@
 ###############################################
 # Base Image
 ###############################################
-FROM python:3.9-alpine as python-base
+#FROM python:3.9-alpine as python-base
+FROM python:3.9-slim as python-base
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
@@ -23,16 +24,18 @@ ENV PYTHONUNBUFFERED=1 \
 ###############################################
 FROM python-base as builder-base
 #适用alpine版本镜像
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
-    && apk update \
-    && apk add --no-cache curl \
-    && apk add postgresql-dev gcc python3-dev musl-dev
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+#    && apk update \
+#    && apk add --no-cache curl \
+#    && apk add postgresql-dev gcc python3-dev musl-dev
+#RUN /usr/local/bin/python -m pip install --upgrade pip
 #适用slim版本
-#RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list
-#RUN apt-get update \
-#    && apt-get install --no-install-recommends -y \
-#    curl \
-#    build-essential
+RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+    curl \
+    && apt-get install gcc python3-dev musl-dev -y
+RUN /usr/local/bin/python -m pip install --upgrade pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
