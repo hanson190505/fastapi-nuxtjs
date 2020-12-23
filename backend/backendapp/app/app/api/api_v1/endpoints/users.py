@@ -18,3 +18,9 @@ def get_users(db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 10
 def post_user(*, db: Session = Depends(deps.get_db), user_in: schemas.UserCreate) -> Any:
     user = crud.user.create(db, obj_in=user_in)
     return user
+
+
+@router.patch('/', response_model=schemas.User)
+def patch_user(*, db: Session = Depends(deps.get_db), user_in: schemas.UserUpdate) -> Any:
+    user = crud.user.update(db, obj_in=user_in)
+    return user
