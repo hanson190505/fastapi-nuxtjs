@@ -1,5 +1,5 @@
 from app.db.base_class import Base
-from sqlalchemy import Column, String, Boolean, DateTime, Integer
+from sqlalchemy import Column, String, Boolean, DateTime, Integer, ForeignKey
 from datetime import datetime
 # 定义映射数据库表的结构
 from sqlalchemy.orm import relationship
@@ -21,4 +21,5 @@ class UserModel(Base):
     is_delete = Column(Boolean, default=False)
     education = Column(Integer, default=1)
 
+    department_id = Column(Integer, ForeignKey('departmentmodel.id'))
     department = relationship('DepartmentModel', back_populates='users')

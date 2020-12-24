@@ -2,6 +2,10 @@ import secrets
 from typing import List, Optional
 
 from pydantic import BaseSettings, AnyHttpUrl, PostgresDsn
+from starlette.config import Config
+
+# TODO:研究Config用法
+config = Config('.env')
 
 
 class Settings(BaseSettings):
@@ -15,7 +19,6 @@ class Settings(BaseSettings):
     # e.g: '["http://localhost", "http://localhost:4200", "http://localhost:3000", \
     # "http://localhost:8080", "http://local.dockertoolbox.tiangolo.com"]'
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
-
     # POSTGRES_SERVER: str
     # POSTGRES_USER: str
     # POSTGRES_PASSWORD: str
