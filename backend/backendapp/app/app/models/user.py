@@ -2,11 +2,14 @@ from app.db.base_class import Base
 from sqlalchemy import Column, String, Boolean, DateTime, Integer
 from datetime import datetime
 # 定义映射数据库表的结构
+from sqlalchemy.orm import relationship
 
 
 class DepartmentModel(Base):
     name = Column(String(32), nullable=False, index=True)
     pub_date = Column(DateTime(timezone=True), default=datetime.now)
+
+    users = relationship("UserModel", back_populates="department")
 
 
 class UserModel(Base):
@@ -17,3 +20,5 @@ class UserModel(Base):
     is_superuser = Column(Boolean, default=False)
     is_delete = Column(Boolean, default=False)
     education = Column(Integer, default=1)
+
+    department = relationship('DepartmentModel', back_populates='users')

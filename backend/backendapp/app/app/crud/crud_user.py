@@ -45,10 +45,10 @@ class CRUDUser(CRUDBase[UserModel, UserCreate, UserUpdate]):
             return None
         return user
 
-    def is_active(self, user: User) -> bool:
+    def is_active(self, user: UserModel) -> bool:
         return user.is_active
 
-    def is_superuser(self, user: User) -> bool:
+    def is_superuser(self, user: UserModel) -> bool:
         return user.is_superuser
 
 

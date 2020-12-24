@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import Column, Integer, DateTime, Boolean
-from sqlalchemy.ext.declarative import as_declarative, declared_attr
+from sqlalchemy.ext.declarative import as_declarative, declared_attr, declarative_base
 
 
 @as_declarative()
@@ -14,3 +14,5 @@ class Base:
     @declared_attr
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
+
+

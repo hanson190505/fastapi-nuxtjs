@@ -31,8 +31,9 @@ class UserInDBBase(UserBase):
 
 # Additional properties to return via API
 class User(UserInDBBase):
-    login_date: datetime
     is_delete: bool
+    phone: str
+    education: int
 
 
 # Additional properties stored in DB
