@@ -1,23 +1,21 @@
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 from pydantic import BaseModel
 # schemas里定义的是响应类,Openapi的响应体格式
 
 
-# Shared properties
 class UserBase(BaseModel):
-    name: Optional[str] = None
-    is_active: Optional[bool] = True
-
-
-# Properties to receive via API on creation
-class UserCreate(UserBase):
     name: str
     phone: str
+    is_active: Optional[bool] = True
+    is_delete: Optional[bool] = False
+    education: Optional[int] = None
+
+
+class UserCreate(UserBase):
     password: str
 
 
-# Properties to receive via API on update
 class UserUpdate(UserBase):
     password: Optional[str] = None
 
@@ -31,11 +29,29 @@ class UserInDBBase(UserBase):
 
 # Additional properties to return via API
 class User(UserInDBBase):
-    is_delete: bool
-    phone: str
-    education: int
+    pass
 
 
 # Additional properties stored in DB
 class UserInDB(UserInDBBase):
     hashed_password: str
+
+
+class DepartmentBase(BaseModel):
+    name: str
+
+
+class DepartmentCreate(DepartmentBase):
+    pass
+
+
+class DepartmentUpdate(DepartmentBase):
+    id: int
+
+
+class DepartmentSchemas(DepartmentBase):
+    id: int
+    users: List[User]
+
+    class Config:
+        orm_mode = True

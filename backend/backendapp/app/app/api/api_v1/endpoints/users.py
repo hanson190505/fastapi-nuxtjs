@@ -11,7 +11,6 @@ router = APIRouter()
 
 @router.get('/', response_model=List[schemas.User])
 def get_users(db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100,
-              current_user: models.UserModel = Depends(deps.get_current_active_user)
               ) -> Any:
     users = crud.user.get_multi(db, skip=skip, limit=limit)
     return users
@@ -29,8 +28,8 @@ def read_user_me(
 
 
 @router.post('/', response_model=schemas.User)
-def post_user(*, db: Session = Depends(deps.get_db), user_in: schemas.UserCreate) -> Any:
-    user = crud.user.create(db, obj_in=user_in)
+def post_user(*, db: Session = Depends(deps.get_db), user_in: schemas.UserCreate, department_id: int) -> Any:
+    user = crud.user.create_with_department(db, obj_in=user_in, department_id=department_id)
     return user
 
 
