@@ -7,7 +7,7 @@ from pydantic import BaseModel
 class UserBase(BaseModel):
     name: str
     phone: str
-    is_active: Optional[bool] = True
+    is_active: bool = True
     is_delete: Optional[bool] = False
     education: Optional[int] = None
 

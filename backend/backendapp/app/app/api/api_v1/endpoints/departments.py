@@ -22,7 +22,7 @@ def get_departments(
     return departments
 
 
-@router.post('/', response_model=DepartmentCreate)
+@router.post('/', response_model=DepartmentSchemas)
 def create_department(
         *,
         db: Session = Depends(deps.get_db),
