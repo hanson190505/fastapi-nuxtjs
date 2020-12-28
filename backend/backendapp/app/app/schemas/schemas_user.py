@@ -12,6 +12,11 @@ class UserBase(BaseModel):
     education: Optional[int] = None
 
 
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+
 class UserCreate(UserBase):
     password: str
 

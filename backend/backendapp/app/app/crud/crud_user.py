@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 class CRUDUser(CRUDBase[UserModel, UserCreate, UserUpdate]):
 
     def get_by_phone(self, db: Session, *, phone: str) -> UserModel:
-        return db.query(UserModel).filter(phone == phone).first()
+        return db.query(self.model).filter(self.model.phone == phone).first()
 
     def create_with_department(self, db: Session, *, obj_in: UserCreate, department_id: int) -> UserModel:
         db_obj = UserModel(

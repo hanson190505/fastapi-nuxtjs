@@ -7,21 +7,31 @@ import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
 
 export interface NotifyApi {
   info(config: ArgsProps): void;
+
   success(config: ArgsProps): void;
+
   error(config: ArgsProps): void;
+
   warn(config: ArgsProps): void;
+
   warning(config: ArgsProps): void;
+
   open(args: ArgsProps): void;
+
   close(key: String): void;
+
   config(options: ConfigProps): void;
+
   destroy(): void;
 }
 
 export declare type NotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 export declare type IconType = 'success' | 'info' | 'error' | 'warning';
+
 export interface ModalOptionsEx extends Omit<ModalFuncProps, 'iconType'> {
   iconType: 'warning' | 'success' | 'error' | 'info';
 }
+
 export type ModalOptionsPartial = Partial<ModalOptionsEx> & Pick<ModalOptionsEx, 'content'>;
 
 interface ConfirmOptions {
