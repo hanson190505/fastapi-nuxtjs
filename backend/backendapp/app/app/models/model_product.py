@@ -1,19 +1,12 @@
 from app.db.base_class import Base
 from sqlalchemy import Column, String, Integer, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 
 
 class Category(Base):
-    name: str = Column(String(64), unique=True, index=True)
-
-    sub_category = relationship('SubCategory', back_populates='parent_category')
-
-
-class SubCategory(Base):
     name = Column(String(64), unique=True, index=True)
-    category_id = Column(Integer, ForeignKey('category.id'))
-    parent_category = relationship('Category', back_populates='sub_category')
-    products = relationship('Product', back_populates='category')
+    parent_category = Column(Integer, ForeignKey('category.id'), nullable=True)
+    sub_categories = relationship('Category')
 
 
 class Product(Base):
@@ -23,6 +16,3 @@ class Product(Base):
     seo_description = Column(String(1024), nullable=True)
     material = Column(String(128), default='custom')
     color = Column(String(128), nullable=True)
-
-    sub_category_id = Column(Integer, ForeignKey('subcategory.id'))
-    category = relationship('SubCategory', back_populates='products')

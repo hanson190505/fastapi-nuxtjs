@@ -1,36 +1,14 @@
 from typing import Optional, List
-
 from pydantic import BaseModel
 
 
-class SubCategoryBase(BaseModel):
-    name: str
-    category_id: int
-
-
-class SubCategoryCreate(SubCategoryBase):
-    pass
-
-
-class SubCategoryUpdate(SubCategoryBase):
-    pass
-
-
-class SubCategoryInDBBase(SubCategoryBase):
-    class Config:
-        orm_mode = True
-
-
-class SubCategory(SubCategoryInDBBase):
-    pass
-
-
 class CategoryBase(BaseModel):
-    name: Optional[str] = None
+    name: str
+    parent_category: int
 
 
 class CategoryCreate(CategoryBase):
-    name: str
+    pass
 
 
 class CategoryUpdate(CategoryBase):
@@ -39,8 +17,7 @@ class CategoryUpdate(CategoryBase):
 
 class CategoryInDBBase(CategoryBase):
     id: int
-    name: str
-    sub_category: List[SubCategory]
+    sub_categories: List[CategoryBase]
 
     class Config:
         orm_mode = True
@@ -48,5 +25,4 @@ class CategoryInDBBase(CategoryBase):
 
 class Category(CategoryInDBBase):
     pass
-
 
