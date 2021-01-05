@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Union, Dict
 from pydantic import BaseModel
 
 
@@ -15,14 +15,50 @@ class CategoryUpdate(CategoryBase):
     pass
 
 
-class CategoryInDBBase(CategoryBase):
+class CategoryListBase2(BaseModel):
     id: int
-    sub_categories: List[CategoryBase]
+    name: str
+    parent_category: int
+    sub_categories: List
 
     class Config:
         orm_mode = True
 
 
-class Category(CategoryInDBBase):
+class CategoryListBase1(BaseModel):
+    id: int
+    name: str
+    parent_category: int
+    sub_categories: List[CategoryListBase2]
+
+    class Config:
+        orm_mode = True
+
+
+class CategoryListBase(BaseModel):
+    id: int
+    name: str
+    parent_category: int
+    sub_categories: List[CategoryListBase1]
+
+    class Config:
+        orm_mode = True
+
+
+class CategoryList(BaseModel):
+    id: int
+    name: str
+    parent_category: int
+    sub_categories: List[CategoryListBase]
+
+    class Config:
+        orm_mode = True
+
+
+CategoryList.update_forward_refs()
+
+
+class ProductBase(BaseModel):
     pass
+
 
